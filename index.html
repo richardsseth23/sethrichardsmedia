@@ -204,6 +204,25 @@
       background: linear-gradient(to right, rgba(10,10,10,0.7) 40%, transparent 100%);
     }
 
+    /* ─── Hero spotlight ─── */
+    #hero-spotlight {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(
+        circle 180px at 50% 50%,
+        transparent 0%,
+        transparent 30%,
+        rgba(0,0,0,0.55) 70%,
+        rgba(0,0,0,0.55) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    #hero:hover #hero-spotlight { opacity: 1; }
+
     /* ─── Grain overlay ─── */
     #hero::after {
       content: '';
@@ -931,6 +950,7 @@
       <source src="filler/20260423_CTBS_Wethersfield_Waterproofing01311171.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
+    <div id="hero-spotlight"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Home Improvement Videography</p>
       <h1 class="hero-title">Built To<br/>Be <span>Seen.</span></h1>
@@ -1302,6 +1322,23 @@
     }, { threshold: 0.3 });
 
     document.querySelectorAll('.section-title').forEach(el => titleObserver.observe(el));
+
+    // ─── Hero spotlight ───
+    const hero = document.getElementById('hero');
+    const spotlight = document.getElementById('hero-spotlight');
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      spotlight.style.background = `radial-gradient(
+        circle 200px at ${x}px ${y}px,
+        transparent 0%,
+        transparent 25%,
+        rgba(0,0,0,0.6) 65%,
+        rgba(0,0,0,0.6) 100%
+      )`;
+    });
 
     // ─── Subtle cursor trail ───
     let trailTimeout;
