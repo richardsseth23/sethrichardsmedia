@@ -1,0 +1,14 @@
+# Video files — too large for GitHub, deploy via Netlify drag & drop
+*.mp4
+*.MP4
+*.mov
+*.MOV
+
+# Mac system files
+.DS_Store
+.claude/
+
+# Temp cursor files
+photos/cursor-*.png
+photos/emoji_*.png
+photos/test*.png
