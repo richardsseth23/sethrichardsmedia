@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seth Richards Media | Home Improvement Videography in Connecticut</title>
+  <meta name="description" content="Seth Richards Media creates cinematic social media content for home improvement contractors in Connecticut. Before & after videos, project reveals, time-lapse, and brand films that convert viewers into clients." />
+  <meta name="keywords" content="home improvement videography, contractor video content, social media videos Connecticut, remodeling videographer, construction content creator" />
+  <meta name="author" content="Seth Richards" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph (Facebook, LinkedIn previews) -->
+  <meta property="og:title" content="Seth Richards Media | Home Improvement Videography" />
+  <meta property="og:description" content="Cinematic social media content for contractors in Connecticut. Content that doesn't just look good — it converts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sethrichardsmedia.com" />
+  <meta property="og:image" content="https://sethrichardsmedia.com/filler/still_01.jpg" />
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Seth Richards Media | Home Improvement Videography" />
+  <meta name="twitter:description" content="Cinematic social media content for contractors in Connecticut. Content that doesn't just look good — it converts." />
+  <meta name="twitter:image" content="https://sethrichardsmedia.com/filler/still_01.jpg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://sethrichardsmedia.com" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Loader ─── */
+    #loader-bg {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 9998;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    #loader-bg.fade { opacity: 0; }
+
+    #loader-logo {
+      position: fixed;
+      overflow: hidden;
+      background: linear-gradient(
+        120deg,
+        #c9a84c 0%,
+        #c9a84c 35%,
+        #fff8e7 50%,
+        #c9a84c 65%,
+        #c9a84c 100%
+      );
+      background-size: 300% auto;
+      background-position: -200% center;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 0.8s ease 0.2s forwards;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Arial Black', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      font-style: italic;
+      color: #c9a84c;
+      letter-spacing: 0.12em;
+      z-index: 9999;
+      pointer-events: none;
+      transition: top 0.8s cubic-bezier(0.76, 0, 0.24, 1),
+                  left 0.8s cubic-bezier(0.76, 0, 0.24, 1),
+                  transform 0.8s cubic-bezier(0.76, 0, 0.24, 1),
+                  font-size 0.8s cubic-bezier(0.76, 0, 0.24, 1),
+                  opacity 0.3s ease 0.7s;
+    }
+
+    #loader-logo.move {
+      top: 1.6rem;
+      left: 4rem;
+      transform: translate(0, 0);
+      font-size: 1.4rem;
+      opacity: 0;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --card:    #1a1a1a;
+      --border:  #2a2a2a;
+      --gold:    #c9a84c;
+      --gold-lt: #e8c97a;
+      --white:   #f5f5f5;
+      --gray:    #888888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.7) 40%, transparent 100%);
+    }
+
+    /* ─── Grain overlay ─── */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── SRM Watermark ─── */
+    .watermark {
+      position: absolute;
+      right: 3rem;
+      bottom: 3rem;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 14vw, 12rem);
+      color: rgba(201, 168, 76, 0.04);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      z-index: 0;
+    }
+
+    /* ─── Word-by-word title animation ─── */
+    .section-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-right: 0.25em;
+    }
+
+    .section-title .word.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Cursor trail ─── */
+    .trail-dot {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c9a84c;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      opacity: 0.6;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .trail-dot.fade {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+
+    /* ─── Watermark rotation ─── */
+    .watermark {
+      animation: slowRotate 30s linear infinite;
+    }
+
+    @keyframes slowRotate {
+      0%   { transform: rotate(-8deg); }
+      50%  { transform: rotate(8deg); }
+      100% { transform: rotate(-8deg); }
+    }
+
+    /* ─── Nav active link ─── */
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 4rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(245,245,245,0.75);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-lt); }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(245,245,245,0.3);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      z-index: 2;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ─── Section Shared ─── */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      color: rgba(245,245,245,0.65);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+
+    /* ─── Reel / Feature Video ─── */
+    #reel {
+      padding: 0;
+      background: var(--dark);
+    }
+
+    .reel-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 4rem;
+    }
+
+    .reel-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ── SWAP: Replace the src in the iframe below with your YouTube/Vimeo embed URL ── */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+    }
+
+    .play-icon {
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon svg { fill: var(--gold); margin-left: 4px; }
+
+    /* ─── Services ─── */
+    #services {
+      background: var(--black);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      margin-top: 4rem;
+      border: 1px solid var(--border);
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: var(--card); }
+
+    .service-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+
+    .service-card:hover .service-num { color: var(--gold); }
+
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── Portfolio ─── */
+    #portfolio {
+      background: var(--dark);
+    }
+
+    .portfolio-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--card);
+      opacity: 0;
+      transform: translateY(60px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--delay, 0s)),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--delay, 0s));
+    }
+
+    .portfolio-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .portfolio-thumb {
+      width: 100%;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.3s;
+      filter: brightness(0.75);
+    }
+
+    /* Placeholder when no image */
+    .portfolio-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: filter 0.3s;
+    }
+
+    .portfolio-item:hover .portfolio-thumb { transform: scale(1.04); filter: brightness(0.5); }
+    .portfolio-item:hover .portfolio-thumb-placeholder { filter: brightness(1.2); }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+    .portfolio-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .portfolio-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.25rem;
+    }
+
+    /* ─── About ─── */
+    #about {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    /* ── SWAP: Replace the src below with your headshot or behind-the-scenes photo ── */
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 60%;
+      height: 60%;
+      border: 2px solid var(--gold);
+      z-index: -1;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-stats > div {
+      flex: 1;
+      padding-right: 2rem;
+      border-right: 1px solid var(--border);
+      margin-right: 2rem;
+    }
+
+    .about-stats > div:last-child {
+      border-right: none;
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── Contact ─── */
+    #contact {
+      background: var(--dark);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      padding-top: 0.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-detail-value {
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--black);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-group select option { background: var(--black); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover { background: var(--gold-lt); }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+
+      .hero-content { padding: 0 1.5rem; }
+      .hero-title { font-size: clamp(3rem, 13vw, 5rem); }
+
+      .reel-inner { padding: 4rem 1.5rem; }
+      .reel-header { flex-direction: column; align-items: flex-start; }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 5rem 1.5rem;
+      }
+
+      .about-img-accent { display: none; }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      footer { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Page Loader ─── -->
+  <div id="loader-bg"></div>
+  <div id="loader-logo">SRM</div>
+
+  <!-- ─── Nav ─── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo" id="nav-logo" style="opacity:0;"><img src="photos/logo.svg" alt="Seth Richards Media" style="height:36px;width:auto;display:block;" /></a>
+    <ul class="nav-links">
+      <li><a href="#reel">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Book a Call</a>
+  </nav>
+
+  <!-- ─── Hero ─── -->
+  <section id="hero">
+    <video class="hero-bg" id="heroBg" autoplay muted loop playsinline preload="auto" poster="filler/still_01.jpg">
+      <source src="filler/20260423_CTBS_Wethersfield_Waterproofing01311171.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Home Improvement Videography</p>
+      <h1 class="hero-title">Built To<br/>Be <span>Seen.</span></h1>
+      <p class="hero-sub">If you build quality spaces, your social media should reflect it. Content that doesn't just look good — it converts.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Book a Call</a>
+        <a href="#portfolio" class="btn-secondary">View Work</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ─── Feature Reel ─── -->
+  <section id="reel">
+    <div class="reel-inner">
+      <div class="reel-header">
+        <div>
+          <p class="section-label">Showreel</p>
+          <h2 class="section-title">Watch the Work</h2>
+        </div>
+        <a href="#portfolio" class="btn-secondary">Full Portfolio →</a>
+      </div>
+      <div class="video-wrapper">
+        <video autoplay loop muted playsinline preload="auto">
+          <source src="home_improvement_reel_v1 (2160p).mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Services ─── -->
+  <section id="services" style="position:relative; overflow:hidden;">
+    <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.08);z-index:0;">
+      <source src="filler/20260423_CTBS_Wethersfield_Waterproofing01370146.mp4" type="video/mp4">
+    </video>
+    <div style="position:relative;z-index:1;">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Services</h2>
+    <div class="divider"></div>
+    <p class="section-body">Social content is where home improvement brands grow. I create scroll-stopping videos built for the platforms your clients are already on.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3 class="service-name">Before &amp; After</h3>
+        <p class="service-desc">The highest-performing format in home improvement. Dramatic transformation videos that show off your craftsmanship and get people stopping mid-scroll.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3 class="service-name">Process &amp; Time-Lapse</h3>
+        <p class="service-desc">Behind-the-scenes coverage of your build from start to finish — satisfying, trust-building content that shows clients exactly how you work.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3 class="service-name">Project Reveals</h3>
+        <p class="service-desc">The big cinematic walkthrough of the finished space. High-impact, highly shareable — the video your clients will send to everyone they know.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3 class="service-name">Brand &amp; Company Films</h3>
+        <p class="service-desc">Longer-form pieces that tell your company story — who you are, how you work, and why clients should choose you over everyone else.</p>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- ─── Portfolio ─── -->
+  <!-- SWAP: For each .portfolio-item, replace the .portfolio-thumb-placeholder with:
+       <img class="portfolio-thumb" src="assets/your-image.jpg" alt="Project name" />
+       Update .portfolio-title and .portfolio-tag text to match your projects. -->
+  <section id="portfolio">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">Portfolio</h2>
+      </div>
+      <a href="#contact" class="btn-secondary">Start a Project →</a>
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+          <source src="galpin_house_renovation_v1 (1080p).mp4" type="video/mp4">
+        </video>
+        <div class="portfolio-overlay">
+          <div class="portfolio-title">Galpin House Renovation</div>
+          <div class="portfolio-tag">Social Content</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+          <source src="Rosado-Driveway Final_.MP4" type="video/mp4">
+        </video>
+        <div class="portfolio-overlay">
+          <div class="portfolio-title">Rosado Driveway</div>
+          <div class="portfolio-tag">Social Content</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+          <source src="middlebury_development_v1 (1080p).mp4" type="video/mp4">
+        </video>
+        <div class="portfolio-overlay">
+          <div class="portfolio-title">Middlebury Development</div>
+          <div class="portfolio-tag">Social Content</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+          <source src="Rosado-Veneer Patio Final_.MP4" type="video/mp4">
+        </video>
+        <div class="portfolio-overlay">
+          <div class="portfolio-title">Rosado Veneer Patio</div>
+          <div class="portfolio-tag">Social Content</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+          <source src="brown_roofing_reel_v1 (1080p).mp4" type="video/mp4">
+        </video>
+        <div class="portfolio-overlay">
+          <div class="portfolio-title">Brown Roofing</div>
+          <div class="portfolio-tag">Social Content</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── About ─── -->
+  <!-- SWAP: Replace .about-img-placeholder with <img class="about-img" src="assets/seth.jpg" alt="Seth Richards" /> -->
+  <section id="about" style="position:relative; overflow:hidden; isolation:isolate;">
+    <div class="watermark">SRM</div>
+    <div class="about-img-wrap">
+      <img class="about-img" src="photos/seth.jpg" alt="Seth Richards" />
+      <div class="about-img-accent"></div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">About</p>
+      <h2 class="section-title">Seth Richards</h2>
+      <div class="divider"></div>
+      <p class="section-body">
+        I started Seth Richards Media with one idea in mind: the home improvement industry deserves better video. The craftsmanship happening on job sites every day is remarkable — it just needs someone who knows how to capture it.
+      </p>
+      <br/>
+      <p class="section-body">
+        I work directly with contractors, remodelers, and builders to document their projects in a way that attracts more clients, builds trust, and sets their brand apart.
+      </p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num" data-target="100">0</div>
+          <div class="stat-label">Projects Filmed</div>
+        </div>
+        <div>
+          <div class="stat-num" data-target="5">0</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Contact ─── -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p class="section-label">Get In Touch</p>
+        <h2 class="section-title">Let's Build Something.</h2>
+        <div class="divider"></div>
+        <p class="section-body">Ready to show your clients the quality of your work? Reach out and let's talk about your next project.</p>
+
+        <br/>
+
+        <!-- SWAP: Update email and phone below -->
+        <div class="contact-detail">
+          <span class="contact-detail-label">Email</span>
+          <span class="contact-detail-value">Richards.Seth23@gmail.com</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Phone</span>
+          <span class="contact-detail-value">(860) 578-5836</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Location</span>
+          <span class="contact-detail-value">Connecticut</span>
+        </div>
+
+        <!-- SWAP: Update href values with your real Instagram and LinkedIn URLs -->
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LI</a>
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Smith Remodeling" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="john@smithremodeling.com" required />
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service…</option>
+            <option>Before &amp; After</option>
+            <option>Process &amp; Time-Lapse</option>
+            <option>Project Reveal</option>
+            <option>Brand &amp; Company Film</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell me about your project</label>
+          <textarea id="message" name="message" placeholder="What are you working on? Timeline, scope, goals…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer>
+    <div class="footer-logo"><img src="photos/logo.svg" alt="Seth Richards Media" style="height:28px;width:auto;display:block;" /></div>
+    <p class="footer-copy">© 2026 Seth Richards Media. All rights reserved.</p>
+  </footer>
+
+  <!-- ─── Scripts ─── -->
+  <script>
+    // ─── Loader ───
+    window.addEventListener('load', () => {
+      const bg   = document.getElementById('loader-bg');
+      const logo = document.getElementById('loader-logo');
+
+      // Hold for 1s, then simultaneously: bg fades out + logo flies to nav
+      setTimeout(() => {
+        bg.classList.add('fade');    // site dissolves in immediately
+        logo.classList.add('move');  // logo slides to nav corner
+
+        // When logo lands, swap in the real nav logo
+        setTimeout(() => {
+          const navLogo = document.getElementById('nav-logo');
+          if (navLogo) navLogo.style.opacity = '1';
+          bg.remove();
+          logo.remove();
+        }, 900);
+      }, 1000);
+    });
+
+    // Nav scroll state + active section highlight
+    const navbar = document.getElementById('navbar');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+
+      // Active nav link
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+
+      // Parallax on hero video
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) {
+        heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+      }
+    });
+
+    // Stat counter animation
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = target >= 100 ? '+' : '+';
+        let start = 0;
+        const duration = 1500;
+        const step = timestamp => {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(ease * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+      counterObserver.observe(el);
+    });
+
+    // Hero image scale-in on load
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+
+    // Form submit handler — wire this up to your form backend (Formspree, etc.)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#4caf50';
+      btn.disabled = true;
+      // TODO: Replace with a real form submission (e.g. fetch to Formspree)
+    }
+
+    // Fade-in on scroll — service cards
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+
+    // Staggered pop-in for portfolio videos
+    const portfolioObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          portfolioObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.portfolio-item').forEach((el, i) => {
+      el.style.setProperty('--delay', `${i * 0.1}s`);
+      portfolioObserver.observe(el);
+    });
+
+    // ─── Word-by-word section titles ───
+    document.querySelectorAll('.section-title').forEach(title => {
+      const words = title.textContent.trim().split(/\s+/);
+      title.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+    });
+
+    const titleObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.word').forEach((word, i) => {
+          setTimeout(() => word.classList.add('visible'), i * 80);
+        });
+        titleObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.section-title').forEach(el => titleObserver.observe(el));
+
+    // ─── Subtle cursor trail ───
+    let trailTimeout;
+    document.addEventListener('mousemove', (e) => {
+      const dot = document.createElement('div');
+      dot.className = 'trail-dot';
+      dot.style.left = e.clientX + 'px';
+      dot.style.top  = e.clientY + 'px';
+      document.body.appendChild(dot);
+      requestAnimationFrame(() => {
+        setTimeout(() => dot.classList.add('fade'), 50);
+        setTimeout(() => dot.remove(), 600);
+      });
+    });
+
+  </script>
+
+</body>
+</html>
