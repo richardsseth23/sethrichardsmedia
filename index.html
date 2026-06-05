@@ -504,33 +504,17 @@
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
+      gap: 1.5rem;
       margin-top: 4rem;
-      border: 1px solid var(--border);
+      perspective: 1200px;
     }
 
     .service-card {
-      background: var(--dark);
-      padding: 2.5rem;
-      border: 1px solid var(--border);
-      transition: background 0.2s;
+      background: transparent;
+      border: none;
+      height: 300px;
       position: relative;
-      overflow: hidden;
     }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { background: var(--card); }
 
     .service-num {
       font-family: var(--font-display);
@@ -556,6 +540,115 @@
       line-height: 1.7;
     }
 
+    /* ─── Services — Flip Cards ─── */
+    .services-grid {
+      perspective: 1200px;
+    }
+
+    .service-card {
+      background: transparent !important;
+      border: none !important;
+      height: 320px;
+      cursor: default;
+    }
+
+    .service-card::before { display: none; }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .card-front {
+      background: var(--dark);
+      overflow: hidden;
+    }
+
+    .card-front::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover .card-front::before {
+      transform: scaleX(1);
+    }
+
+    .card-back {
+      background: var(--card);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-color: var(--gold);
+      border-top-width: 2px;
+    }
+
+    .card-back-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-back-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .card-back-desc {
+      font-size: 0.85rem;
+      color: rgba(245,245,245,0.7);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-back-cta {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-back-cta::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .service-card:hover .card-back-cta::after {
+      transform: translateX(4px);
+    }
+
     /* ─── Portfolio ─── */
     #portfolio {
       background: var(--dark);
@@ -570,27 +663,36 @@
       gap: 1rem;
     }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+    /* Carousel */
+    .portfolio-track-wrap {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    }
+
+    .portfolio-track {
+      display: flex;
       gap: 0.75rem;
+      width: max-content;
+      animation: carouselScroll 28s linear infinite;
+    }
+
+    .portfolio-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes carouselScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .portfolio-item {
       position: relative;
+      flex: 0 0 auto;
+      width: 200px;
       overflow: hidden;
       cursor: pointer;
       background: var(--card);
-      opacity: 0;
-      transform: translateY(60px);
-      transition:
-        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--delay, 0s)),
-        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--delay, 0s));
-    }
-
-    .portfolio-item.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .portfolio-thumb {
@@ -602,24 +704,7 @@
       filter: brightness(0.75);
     }
 
-    /* Placeholder when no image */
-    .portfolio-thumb-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: var(--card);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--border);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: filter 0.3s;
-    }
-
     .portfolio-item:hover .portfolio-thumb { transform: scale(1.04); filter: brightness(0.5); }
-    .portfolio-item:hover .portfolio-thumb-placeholder { filter: brightness(1.2); }
 
     .portfolio-overlay {
       position: absolute;
@@ -627,7 +712,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 1.5rem;
+      padding: 1.2rem;
       background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
       opacity: 0;
       transition: opacity 0.3s;
@@ -637,16 +722,16 @@
 
     .portfolio-title {
       font-family: var(--font-display);
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       letter-spacing: 0.05em;
     }
 
     .portfolio-tag {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
 
     /* ─── About ─── */
@@ -911,8 +996,8 @@
 
       .form-row { grid-template-columns: 1fr; }
 
-      .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .portfolio-item {
+        width: 160px;
       }
 
       footer { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
@@ -988,26 +1073,71 @@
     <p class="section-body">Social content is where home improvement brands grow. I create scroll-stopping videos built for the platforms your clients are already on.</p>
 
     <div class="services-grid">
+
       <div class="service-card">
-        <div class="service-num">01</div>
-        <h3 class="service-name">Before &amp; After</h3>
-        <p class="service-desc">The highest-performing format in home improvement. Dramatic transformation videos that show off your craftsmanship and get people stopping mid-scroll.</p>
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="service-num">01</div>
+            <h3 class="service-name">Before &amp; After</h3>
+            <p class="service-desc">The highest-performing format in home improvement. Dramatic transformation videos that stop the scroll.</p>
+          </div>
+          <div class="card-back">
+            <div class="card-back-label">What you get</div>
+            <div class="card-back-title">Before &amp; After</div>
+            <p class="card-back-desc">Side-by-side or sequential transformation footage shot on-site. Edited for reels, TikTok, and YouTube Shorts with music, titles, and color grading.</p>
+            <a href="#contact" class="card-back-cta">Book this</a>
+          </div>
+        </div>
       </div>
+
       <div class="service-card">
-        <div class="service-num">02</div>
-        <h3 class="service-name">Process &amp; Time-Lapse</h3>
-        <p class="service-desc">Behind-the-scenes coverage of your build from start to finish — satisfying, trust-building content that shows clients exactly how you work.</p>
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="service-num">02</div>
+            <h3 class="service-name">Process &amp; Time-Lapse</h3>
+            <p class="service-desc">Behind-the-scenes coverage of your build from start to finish — satisfying, trust-building content.</p>
+          </div>
+          <div class="card-back">
+            <div class="card-back-label">What you get</div>
+            <div class="card-back-title">Process &amp; Time-Lapse</div>
+            <p class="card-back-desc">Full-day or multi-day shoot capturing your crew in action. Time-lapse sequences, detail shots, and real work footage that builds credibility.</p>
+            <a href="#contact" class="card-back-cta">Book this</a>
+          </div>
+        </div>
       </div>
+
       <div class="service-card">
-        <div class="service-num">03</div>
-        <h3 class="service-name">Project Reveals</h3>
-        <p class="service-desc">The big cinematic walkthrough of the finished space. High-impact, highly shareable — the video your clients will send to everyone they know.</p>
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="service-num">03</div>
+            <h3 class="service-name">Project Reveals</h3>
+            <p class="service-desc">The cinematic walkthrough of the finished space — highly shareable, highly memorable.</p>
+          </div>
+          <div class="card-back">
+            <div class="card-back-label">What you get</div>
+            <div class="card-back-title">Project Reveals</div>
+            <p class="card-back-desc">A polished, cinematic reveal of the completed project. Shot with intentional camera movement, edited to make the final result land like a punch.</p>
+            <a href="#contact" class="card-back-cta">Book this</a>
+          </div>
+        </div>
       </div>
+
       <div class="service-card">
-        <div class="service-num">04</div>
-        <h3 class="service-name">Brand &amp; Company Films</h3>
-        <p class="service-desc">Longer-form pieces that tell your company story — who you are, how you work, and why clients should choose you over everyone else.</p>
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="service-num">04</div>
+            <h3 class="service-name">Brand &amp; Company Films</h3>
+            <p class="service-desc">Your story, told well — who you are, how you work, and why clients should choose you.</p>
+          </div>
+          <div class="card-back">
+            <div class="card-back-label">What you get</div>
+            <div class="card-back-title">Brand Films</div>
+            <p class="card-back-desc">Longer-form brand storytelling for your website, ads, or social — interviews, job site b-roll, and narrative editing that sets you apart from competitors.</p>
+            <a href="#contact" class="card-back-cta">Book this</a>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
   </section>
@@ -1025,51 +1155,103 @@
       <a href="#contact" class="btn-secondary">Start a Project →</a>
     </div>
 
-    <div class="portfolio-grid">
-      <div class="portfolio-item">
-        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
-          <source src="galpin_house_renovation_v1 (1080p).mp4" type="video/mp4">
-        </video>
-        <div class="portfolio-overlay">
-          <div class="portfolio-title">Galpin House Renovation</div>
-          <div class="portfolio-tag">Social Content</div>
+    <div class="portfolio-track-wrap">
+      <div class="portfolio-track" id="portfolioTrack">
+
+        <!-- Set A -->
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="galpin_house_renovation_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Galpin House Renovation</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
         </div>
-      </div>
-      <div class="portfolio-item">
-        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
-          <source src="Rosado-Driveway Final_.MP4" type="video/mp4">
-        </video>
-        <div class="portfolio-overlay">
-          <div class="portfolio-title">Rosado Driveway</div>
-          <div class="portfolio-tag">Social Content</div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="Rosado-Driveway Final_.MP4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Rosado Driveway</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
         </div>
-      </div>
-      <div class="portfolio-item">
-        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
-          <source src="middlebury_development_v1 (1080p).mp4" type="video/mp4">
-        </video>
-        <div class="portfolio-overlay">
-          <div class="portfolio-title">Middlebury Development</div>
-          <div class="portfolio-tag">Social Content</div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="middlebury_development_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Middlebury Development</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
         </div>
-      </div>
-      <div class="portfolio-item">
-        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
-          <source src="Rosado-Veneer Patio Final_.MP4" type="video/mp4">
-        </video>
-        <div class="portfolio-overlay">
-          <div class="portfolio-title">Rosado Veneer Patio</div>
-          <div class="portfolio-tag">Social Content</div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="Rosado-Veneer Patio Final_.MP4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Rosado Veneer Patio</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
         </div>
-      </div>
-      <div class="portfolio-item">
-        <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
-          <source src="brown_roofing_reel_v1 (1080p).mp4" type="video/mp4">
-        </video>
-        <div class="portfolio-overlay">
-          <div class="portfolio-title">Brown Roofing</div>
-          <div class="portfolio-tag">Social Content</div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="brown_roofing_reel_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Brown Roofing</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
         </div>
+
+        <!-- Set B (duplicate for seamless loop) -->
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="galpin_house_renovation_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Galpin House Renovation</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="Rosado-Driveway Final_.MP4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Rosado Driveway</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="middlebury_development_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Middlebury Development</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="Rosado-Veneer Patio Final_.MP4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Rosado Veneer Patio</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <video class="portfolio-thumb" muted playsinline autoplay loop preload="auto">
+            <source src="brown_roofing_reel_v1 (1080p).mp4" type="video/mp4">
+          </video>
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Brown Roofing</div>
+            <div class="portfolio-tag">Social Content</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1266,7 +1448,7 @@
     }
 
     // Fade-in on scroll — service cards
-    const observer = new IntersectionObserver((entries) => {
+    const cardObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.style.opacity = '1';
@@ -1275,26 +1457,11 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card').forEach(el => {
+    document.querySelectorAll('.service-card').forEach((el, i) => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(24px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      observer.observe(el);
-    });
-
-    // Staggered pop-in for portfolio videos
-    const portfolioObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          portfolioObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.portfolio-item').forEach((el, i) => {
-      el.style.setProperty('--delay', `${i * 0.1}s`);
-      portfolioObserver.observe(el);
+      el.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+      cardObserver.observe(el);
     });
 
     // ─── Video tilt straighten ───
