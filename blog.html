@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Seth Richards Media</title>
+  <meta name="description" content="Tips, insights, and strategies for home improvement contractors who want to grow their business with video content." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sethrichardsmedia.com/blog.html" />
+
+  <meta property="og:title" content="Blog | Seth Richards Media" />
+  <meta property="og:description" content="Tips and strategies for home improvement contractors growing their business with video." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sethrichardsmedia.com/blog.html" />
+  <meta property="og:image" content="https://sethrichardsmedia.com/filler/still_01.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --card:    #1a1a1a;
+      --border:  #2a2a2a;
+      --gold:    #c9a84c;
+      --gold-lt: #e8c97a;
+      --white:   #f5f5f5;
+      --gray:    #888888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+    /* ─── Page Header ─── */
+    .page-header {
+      padding: 10rem 4rem 5rem;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::after {
+      content: 'BLOG';
+      position: absolute;
+      right: 3rem;
+      bottom: -1rem;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 14vw, 10rem);
+      color: rgba(201,168,76,0.04);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .page-header .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: rgba(245,245,245,0.6);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    /* ─── Blog Grid ─── */
+    .blog-section {
+      padding: 5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .blog-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .blog-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s),
+                  transform 0.6s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s),
+                  border-color 0.3s;
+    }
+
+    .blog-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .blog-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.8);
+      transition: filter 0.3s;
+    }
+
+    .blog-card:hover .blog-card-img { filter: brightness(1); }
+
+    .blog-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog-card-img-placeholder svg {
+      opacity: 0.15;
+    }
+
+    .blog-card-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-card-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .blog-card-date {
+      font-size: 0.7rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    .blog-card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      transition: color 0.2s;
+    }
+
+    .blog-card:hover .blog-card-title { color: var(--gold); }
+
+    .blog-card-excerpt {
+      font-size: 0.88rem;
+      color: rgba(245,245,245,0.6);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-card-read {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+
+    .blog-card:hover .blog-card-read { gap: 0.7rem; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 8rem 1.5rem 4rem; }
+      .blog-section { padding: 4rem 1.5rem; }
+      .blog-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ─── -->
+  <nav>
+    <a href="index.html" style="display:block;">
+      <img src="photos/logo.svg" alt="Seth Richards Media" style="height:36px;width:auto;display:block;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#reel">Work</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+    </ul>
+    <a href="index.html#contact" class="nav-cta">Book a Call</a>
+  </nav>
+
+  <!-- ─── Page Header ─── -->
+  <div class="page-header">
+    <p class="section-label">Insights</p>
+    <h1>The Blog</h1>
+    <p>Tips and strategies for home improvement contractors who want to grow with video.</p>
+  </div>
+
+  <!-- ─── Blog Posts ─── -->
+  <div class="blog-section">
+    <div class="blog-grid">
+
+      <!-- Post 1 -->
+      <a href="blog/why-contractors-need-video.html" class="blog-card">
+        <div class="blog-card-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-card-tag">Strategy</span>
+            <span class="blog-card-date">June 2026</span>
+          </div>
+          <h2 class="blog-card-title">Why Every Connecticut Contractor Needs Video in 2026</h2>
+          <p class="blog-card-excerpt">Your work speaks for itself on the job site. But if nobody sees it online, you're leaving serious money on the table. Here's why video is the highest-ROI move you can make right now.</p>
+          <span class="blog-card-read">Read More →</span>
+        </div>
+      </a>
+
+      <!-- Add more posts here — duplicate the block above -->
+
+    </div>
+  </div>
+
+  <!-- ─── Footer ─── -->
+  <footer>
+    <a href="index.html"><img src="photos/logo.svg" alt="Seth Richards Media" style="height:28px;width:auto;display:block;" /></a>
+    <p class="footer-copy">© 2026 Seth Richards Media. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cards = document.querySelectorAll('.blog-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach((card, i) => {
+      card.style.setProperty('--delay', `${i * 0.1}s`);
+      cardObserver.observe(card);
+    });
+  </script>
+
+</body>
+</html>
