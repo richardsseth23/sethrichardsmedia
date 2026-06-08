@@ -1,0 +1,15 @@
+{
+  "name": "srm-higgsfield",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Higgsfield AI tools for Seth Richards Media",
+  "main": "index.js",
+  "scripts": {
+    "img2vid": "node index.js img2vid",
+    "txt2vid": "node index.js txt2vid",
+    "txt2img": "node index.js txt2img"
+  },
+  "dependencies": {
+    "@higgsfield/client": "latest"
+  }
+}
