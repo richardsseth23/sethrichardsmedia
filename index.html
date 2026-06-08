@@ -1553,29 +1553,36 @@
 
     // ─── Lazy load portfolio videos ───
     (function() {
-      // Grab every source inside a .portfolio-thumb and stash its src as data-src
+      // Store each source's original filename from the HTML attribute
       document.querySelectorAll('.portfolio-thumb source').forEach(source => {
-        source.dataset.src = source.src;
-        source.removeAttribute('src');
+        const attr = source.getAttribute('src');
+        if (attr) {
+          source.setAttribute('data-src', attr);
+          source.removeAttribute('src');
+        }
       });
+
+      let loaded = false;
+      const portfolioSection = document.getElementById('portfolio');
 
       const lazyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const video = entry.target;
-          const source = video.querySelector('source');
-          if (source && source.dataset.src && !source.src) {
-            source.src = source.dataset.src;
+          if (!entry.isIntersecting || loaded) return;
+          loaded = true;
+          document.querySelectorAll('.portfolio-thumb source').forEach(source => {
+            if (source.dataset.src && !source.getAttribute('src')) {
+              source.setAttribute('src', source.dataset.src);
+            }
+          });
+          document.querySelectorAll('.portfolio-thumb').forEach(video => {
             video.load();
             video.play().catch(() => {});
-          }
-          lazyObserver.unobserve(video);
+          });
+          lazyObserver.unobserve(portfolioSection);
         });
-      }, { rootMargin: '200px' });
+      }, { threshold: 0.1 });
 
-      document.querySelectorAll('.portfolio-thumb').forEach(video => {
-        lazyObserver.observe(video);
-      });
+      if (portfolioSection) lazyObserver.observe(portfolioSection);
     })();
 
     // ─── Subtle cursor trail ───
