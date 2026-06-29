@@ -1422,16 +1422,15 @@
   <!-- ─── Scripts ─── -->
   <script>
     // ─── Loader ───
-    window.addEventListener('load', () => {
+    function runLoader() {
       const bg   = document.getElementById('loader-bg');
       const logo = document.getElementById('loader-logo');
+      if (!bg || !logo) return;
 
-      // Hold for 1s, then simultaneously: bg fades out + logo flies to nav
       setTimeout(() => {
-        bg.classList.add('fade');    // site dissolves in immediately
-        logo.classList.add('move');  // logo slides to nav corner
+        bg.classList.add('fade');
+        logo.classList.add('move');
 
-        // When logo lands, swap in the real nav logo
         setTimeout(() => {
           const navLogo = document.getElementById('nav-logo');
           if (navLogo) navLogo.style.opacity = '1';
@@ -1439,7 +1438,14 @@
           logo.remove();
         }, 900);
       }, 500);
-    });
+    }
+
+    // Run on DOMContentLoaded so videos don't block the reveal
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runLoader);
+    } else {
+      runLoader();
+    }
 
     // Nav scroll state + active section highlight
     const navbar = document.getElementById('navbar');
