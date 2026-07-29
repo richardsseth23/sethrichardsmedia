@@ -439,6 +439,12 @@
     }
 
     /* ── SWAP: Replace the src in the iframe below with your YouTube/Vimeo embed URL ── */
+    /* ─── Reel: 3D scroll-zoom wrapper ─── */
+    #reel {
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+    }
+
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -450,6 +456,7 @@
                   opacity 0.8s ease,
                   box-shadow 1s ease;
       box-shadow: 0 0 0 rgba(201,168,76,0);
+      will-change: transform;
     }
 
     .video-wrapper.straighten {
@@ -671,6 +678,7 @@
       overflow: hidden;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      perspective: 1000px;
     }
 
     .portfolio-track {
@@ -696,6 +704,9 @@
       overflow: hidden;
       cursor: pointer;
       background: var(--card);
+      transform-origin: center bottom;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      will-change: transform;
     }
 
     .portfolio-thumb {
@@ -1603,6 +1614,82 @@
 
     document.querySelectorAll('.section-title').forEach(el => titleObserver.observe(el));
 
+
+    // ─── Effect 2: Scroll-driven 3D zoom on reel video ───
+    (function() {
+      const wrapper = document.querySelector('.video-wrapper');
+      if (!wrapper) return;
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = wrapper.getBoundingClientRect();
+          const vh = window.innerHeight;
+          // progress: 0 when entering bottom, 1 when centered, 2 when leaving top
+          const progress = 1 - (rect.top + rect.height / 2 - vh / 2) / (vh * 0.8);
+          const clamped = Math.max(0, Math.min(1, progress));
+          // Tilt from rotateX(8deg) to rotateX(0) as it centers
+          const rotX = (1 - clamped) * 8;
+          const scale = 0.96 + clamped * 0.04;
+          if (wrapper.classList.contains('straighten')) {
+            wrapper.style.transform = `rotateX(${rotX}deg) scale(${scale})`;
+          }
+          ticking = false;
+        });
+      });
+    })();
+
+    // ─── Effect 3: Section tilt on scroll ───
+    (function() {
+      const targets = document.querySelectorAll('#services, #about, #contact');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const vh = window.innerHeight;
+          targets.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const center = rect.top + rect.height / 2 - vh / 2;
+            const normalized = Math.max(-1, Math.min(1, center / (vh * 0.6)));
+            const rotX = normalized * 4;
+            const translateZ = normalized < 0 ? normalized * 30 : 0;
+            section.style.transform = `perspective(1200px) rotateX(${rotX}deg) translateZ(${translateZ}px)`;
+            section.style.transformOrigin = normalized > 0 ? 'center top' : 'center bottom';
+          });
+          ticking = false;
+        });
+      });
+    })();
+
+    // ─── Effect 4: Carousel depth (center = front, sides = pushed back) ───
+    (function() {
+      const track = document.getElementById('portfolioTrack');
+      if (!track) return;
+      const wrap = track.parentElement;
+
+      function updateDepth() {
+        const wrapRect = wrap.getBoundingClientRect();
+        const wrapCX = wrapRect.left + wrapRect.width / 2;
+        const items = track.querySelectorAll('.portfolio-item');
+        items.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          const itemCX = rect.left + rect.width / 2;
+          const dist = Math.abs(itemCX - wrapCX);
+          const maxDist = wrapRect.width / 2;
+          const normalized = Math.min(dist / maxDist, 1);
+          const scale = 1 - normalized * 0.18;
+          const rotY = (itemCX < wrapCX ? 1 : -1) * normalized * 12;
+          const brightness = 1 - normalized * 0.4;
+          item.style.transform = `scale(${scale}) rotateY(${rotY}deg)`;
+          item.style.filter = `brightness(${brightness})`;
+        });
+        requestAnimationFrame(updateDepth);
+      }
+
+      updateDepth();
+    })();
 
     // ─── Subtle cursor trail ───
     let trailTimeout;
