@@ -678,7 +678,8 @@
       overflow: hidden;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
-      perspective: 1000px;
+      perspective: 500px;
+      perspective-origin: center center;
     }
 
     .portfolio-track {
@@ -686,6 +687,7 @@
       gap: 0.75rem;
       width: max-content;
       animation: carouselScroll 28s linear infinite;
+      transform-style: preserve-3d;
     }
 
     .portfolio-track:hover {
@@ -704,9 +706,31 @@
       overflow: hidden;
       cursor: pointer;
       background: var(--card);
-      transform-origin: center bottom;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      transform-origin: center center;
       will-change: transform;
+    }
+
+    /* Glare overlay for mouse-tilt effect */
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+    }
+
+    /* Slam-in reveal */
+    .slam-in {
+      opacity: 0;
+      transform: perspective(900px) rotateX(65deg);
+      transform-origin: center top;
+      transition: transform 0.9s cubic-bezier(0.34, 1.5, 0.64, 1), opacity 0.6s ease;
+    }
+    .slam-in.slammed {
+      opacity: 1;
+      transform: perspective(900px) rotateX(0deg);
     }
 
     .portfolio-thumb {
@@ -1585,21 +1609,41 @@
       // TODO: Replace with a real form submission (e.g. fetch to Formspree)
     }
 
-    // Fade-in on scroll — service cards
-    const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
+    // ─── Mouse-tracking 3D tilt on service cards ───
+    document.querySelectorAll('.service-card').forEach((card, i) => {
+      const glare = document.createElement('div');
+      glare.className = 'card-glare';
+      const front = card.querySelector('.card-front');
+      if (front) front.appendChild(glare);
 
-    document.querySelectorAll('.service-card').forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
-      el.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
-      cardObserver.observe(el);
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(24px)';
+      card.style.transition = `opacity 0.6s ease ${i * 0.12}s, transform 0.6s ease ${i * 0.12}s`;
+
+      const revealObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          revealObs.disconnect();
+        }
+      }, { threshold: 0.1 });
+      revealObs.observe(card);
+
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transition = 'transform 0.06s ease';
+        card.style.transform = `perspective(600px) rotateX(${-y * 18}deg) rotateY(${x * 18}deg) scale(1.04)`;
+        glare.style.opacity = '1';
+        glare.style.background = `radial-gradient(circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(201,168,76,0.22) 0%, transparent 65%)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.6s cubic-bezier(0.34,1.3,0.64,1)';
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+        glare.style.opacity = '0';
+      });
     });
 
     // ─── Video tilt straighten ───
@@ -1660,55 +1704,56 @@
       });
     })();
 
-    // ─── Effect 3: Section tilt on scroll ───
+    // ─── Slam-in reveal for section content ───
     (function() {
-      const targets = document.querySelectorAll('#services, #about, #contact');
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          const vh = window.innerHeight;
-          targets.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const center = rect.top + rect.height / 2 - vh / 2;
-            const normalized = Math.max(-1, Math.min(1, center / (vh * 0.6)));
-            const rotX = normalized * 4;
-            const translateZ = normalized < 0 ? normalized * 30 : 0;
-            section.style.transform = `perspective(1200px) rotateX(${rotX}deg) translateZ(${translateZ}px)`;
-            section.style.transformOrigin = normalized > 0 ? 'center top' : 'center bottom';
-          });
-          ticking = false;
+      const slamTargets = [
+        document.querySelector('.video-wrapper'),
+        document.querySelector('.services-grid'),
+        document.querySelector('#about .about-img-wrap'),
+        document.querySelector('#about .about-text'),
+        document.querySelector('.contact-inner'),
+      ].filter(Boolean);
+
+      slamTargets.forEach(el => el.classList.add('slam-in'));
+
+      const slamObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('slammed');
+            slamObs.unobserve(entry.target);
+          }
         });
-      });
+      }, { threshold: 0.1 });
+
+      slamTargets.forEach(el => slamObs.observe(el));
     })();
 
-    // ─── Effect 4: Carousel depth (center = front, sides = pushed back) ───
+    // ─── 3D tunnel carousel ───
     (function() {
       const track = document.getElementById('portfolioTrack');
       if (!track) return;
       const wrap = track.parentElement;
 
-      function updateDepth() {
+      function updateTunnel() {
         const wrapRect = wrap.getBoundingClientRect();
         const wrapCX = wrapRect.left + wrapRect.width / 2;
-        const items = track.querySelectorAll('.portfolio-item');
-        items.forEach(item => {
+        track.querySelectorAll('.portfolio-item').forEach(item => {
           const rect = item.getBoundingClientRect();
           const itemCX = rect.left + rect.width / 2;
           const dist = Math.abs(itemCX - wrapCX);
-          const maxDist = wrapRect.width / 2;
-          const normalized = Math.min(dist / maxDist, 1);
-          const scale = 1 - normalized * 0.18;
-          const rotY = (itemCX < wrapCX ? 1 : -1) * normalized * 12;
-          const brightness = 1 - normalized * 0.4;
-          item.style.transform = `scale(${scale}) rotateY(${rotY}deg)`;
+          const maxDist = wrapRect.width * 0.55;
+          const n = Math.min(dist / maxDist, 1);
+          const scale = 1 - n * 0.5;
+          const rotY = (itemCX < wrapCX ? 1 : -1) * n * 52;
+          const tz = -n * 180;
+          const brightness = 1 - n * 0.72;
+          item.style.transform = `scale(${scale}) rotateY(${rotY}deg) translateZ(${tz}px)`;
           item.style.filter = `brightness(${brightness})`;
         });
-        requestAnimationFrame(updateDepth);
+        requestAnimationFrame(updateTunnel);
       }
 
-      updateDepth();
+      updateTunnel();
     })();
 
     // ─── Subtle cursor trail ───
